@@ -1,0 +1,52 @@
+require:
+  - rubocop
+  - rubocop-rails
+  - rubocop-rspec
+
+inherit_mode:
+  merge:
+    - Exclude
+
+AllCops:
+  TargetRubyVersion: 3.1.2
+  NewCops: enable
+  Exclude:
+    - bin/**/*
+    - db/schema.rb
+    - vendor/**/*
+
+Style/Documentation:
+  Enabled: false
+
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 136
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*.rb
+
+Metrics/AbcSize:
+  Max: 45
+
+Rails/EnvironmentVariableAccess:
+  AllowReads: true
+
+Rails/HasManyOrHasOneDependent:
+  Enabled: false
+
+RSpec/NestedGroups:
+  Max: 4
+
+RSpec/MultipleMemoizedHelpers:
+  Max: 10
+
+RSpec/MultipleExpectations:
+  Exclude:
+    - spec/requests/**/*.rb
+  Max: 1
+
+RSpec/ExampleLength:
+  Max: 5

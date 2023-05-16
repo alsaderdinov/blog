@@ -1,8 +1,10 @@
 class PostsController < ApplicationController
+  include Pagy::Backend
+
   before_action :set_post, only: %i[show edit update destroy]
 
   def index
-    @posts = Post.includes(:user)
+    @pagy, @posts = pagy(Post.all)
   end
 
   def show; end

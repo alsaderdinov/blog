@@ -15,6 +15,7 @@ gem 'rails', '~> 7.0.3'
 gem 'redis', '~> 4.0'
 gem 'sprockets-rails'
 gem 'stimulus-rails'
+gem 'pagy', '~> 6.0'
 gem 'turbo-rails'
 
 group :development, :test do

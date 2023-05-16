@@ -1,0 +1,9 @@
+.card.mt-3
+  .card-header
+    = post.user.email
+  .card-body
+    %h5.card-title
+      = post.title
+    %p.card-text
+      = truncate strip_tags(post.body), length: 150
+    %a.btn.btn-primary{:href => "#{post_path(post)}"} Go to post

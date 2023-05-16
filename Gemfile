@@ -6,6 +6,7 @@ ruby '3.1.2'
 gem 'bootsnap', require: false
 gem 'bootstrap', '~> 5.3.0.alpha3'
 gem 'devise'
+gem 'haml-rails', '~> 2.0'
 gem 'importmap-rails'
 gem 'jbuilder'
 gem 'pg', '~> 1.1'
@@ -14,7 +15,6 @@ gem 'rails', '~> 7.0.3'
 gem 'redis', '~> 4.0'
 gem 'sprockets-rails'
 gem 'stimulus-rails'
-gem "haml-rails", "~> 2.0"
 gem 'turbo-rails'
 
 group :development, :test do
@@ -32,6 +32,8 @@ end
 
 group :test do
   gem 'capybara'
+  gem 'fuubar'
+  gem 'rails-controller-testing'
   gem 'selenium-webdriver'
   gem 'shoulda-matchers', '~> 5.0'
   gem 'webdrivers'

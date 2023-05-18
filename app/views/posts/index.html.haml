@@ -5,6 +5,21 @@
   - if policy(:post).new?
     = link_to 'New post', new_post_path, class: 'btn btn-primary mb-3 mt-3'
 
-  = render @posts
+  - if user_signed_in?
+    = form_tag posts_path, method: :get do
+      = select_tag :filter, options_for_select({ 'All Posts' => 'all', 'My Posts' => 'my' }, params[:filter]), class: 'form-select mb-3'
+      = submit_tag 'Filter', class: 'btn btn-secondary'
+
+  - @posts.each do |post|
+    .card.mt-3
+      .card-header
+        = post.user.email
+      .card-body
+        %h5.card-title
+          = post.title
+        %p.card-text
+          = truncate(strip_tags(post.body), length: 150)
+        = link_to 'Go to post', post_path(post), class: 'btn btn-primary'
+
   .mt-3
   = pagination @pagy

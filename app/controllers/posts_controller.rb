@@ -3,7 +3,11 @@ class PostsController < ApplicationController
   before_action :authorize_post!
 
   def index
-    @pagy, @posts = pagy(Post.for_pagination)
+    if params[:filter] == 'my'
+      @pagy, @posts = pagy(current_user.posts.for_pagination)
+    else
+      @pagy, @posts = pagy(Post.for_pagination)
+    end
   end
 
   def show

@@ -4,6 +4,8 @@ git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 ruby '3.1.2'
 
 gem 'bootsnap', require: false
+gem 'arctic_admin'
+gem 'activeadmin'
 gem 'bootstrap', '~> 5.3.0.alpha3'
 gem 'devise'
 gem 'haml-rails', '~> 2.0'

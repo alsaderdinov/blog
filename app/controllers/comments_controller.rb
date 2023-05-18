@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  before_action :set_post
+  before_action :set_post, only: :create
 
   def create
     @comment = @post.comments.new(comment_params)
@@ -20,9 +20,5 @@ class CommentsController < ApplicationController
 
   def set_post
     @post = Post.find(params[:post_id])
-  end
-
-  def set_comment
-    @comment = Comment.find(params[:id])
   end
 end

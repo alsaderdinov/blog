@@ -49,12 +49,19 @@ RSpec.describe PostsController, type: :controller do
     before { sign_in user }
 
     context 'with valid params' do
-      let(:valid_params) { attributes_for(:post) }
+      let(:valid_params) do
+        attributes_for(:post).merge(image: fixture_file_upload(Rails.root.join('spec', 'fixtures', 'image.jpg'), 'image/jpeg'))
+      end
 
       it 'creates a new post' do
         expect do
           post :create, params: { post: valid_params }
         end.to change(Post, :count).by(1)
+      end
+
+      it 'attaches the image to the new post' do
+        post :create, params: { post: valid_params }
+        expect(Post.last.image).to be_attached
       end
 
       it 'redirects to the posts index' do
@@ -104,8 +111,8 @@ RSpec.describe PostsController, type: :controller do
         expect(post.title).to eq('New Title')
       end
 
-      it 'redirects to the posts index' do
-        expect(response).to redirect_to(posts_path)
+      it 'redirects to the post' do
+        expect(response).to redirect_to(post)
       end
 
       it 'sets a flash message' do

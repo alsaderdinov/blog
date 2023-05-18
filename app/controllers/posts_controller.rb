@@ -30,7 +30,7 @@ class PostsController < ApplicationController
   def update
     if @post.update(post_params)
       flash[:success] = 'Post updated successfully'
-      redirect_to posts_path
+      redirect_to post_path(@post)
     else
       render :edit, status: :unprocessable_entity
     end
@@ -45,7 +45,7 @@ class PostsController < ApplicationController
   private
 
   def post_params
-    params.require(:post).permit(:title, :body)
+    params.require(:post).permit(:title, :body, :image)
   end
 
   def set_post

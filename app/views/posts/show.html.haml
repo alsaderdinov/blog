@@ -1,3 +1,6 @@
+- if @post.image.attached?
+  = link_to(image_tag(@post.image, size: "1400x625", class: "rounded mx-auto d-block mt-4"), @post.image)
+
 .card.text-center
   .card-body
     .h1.card-title

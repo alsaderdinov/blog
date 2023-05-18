@@ -1,7 +1,10 @@
 .posts.px-5
-    .h1.mt-3 Posts
-    = pagination @pagy
+  .h1.mt-3 Posts
+  = pagination @pagy
+
+  - if policy(:post).new?
     = link_to 'New post', new_post_path, class: 'btn btn-primary mb-3 mt-3'
-    = render @posts
-    .mt-3
-    = pagination @pagy
+
+  = render @posts
+  .mt-3
+  = pagination @pagy

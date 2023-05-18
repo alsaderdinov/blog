@@ -5,5 +5,5 @@ class Post < ApplicationRecord
   validates :title, presence: true
   validates :body, presence: true
 
-  scope :for_pagination, -> { order(created_at: :desc) }
+  scope :for_pagination, -> { includes(:user).order(created_at: :desc) }
 end

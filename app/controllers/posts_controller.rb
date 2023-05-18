@@ -1,13 +1,14 @@
 class PostsController < ApplicationController
-  include Pagy::Backend
-
   before_action :set_post, only: %i[show edit update destroy]
+  before_action :authorize_post!
 
   def index
-    @pagy, @posts = pagy(Post.all)
+    @pagy, @posts = pagy(Post.for_pagination)
   end
 
-  def show; end
+  def show
+    @comment = @post.comments.new
+  end
 
   def new
     @post = Post.new
@@ -19,7 +20,7 @@ class PostsController < ApplicationController
     @post = current_user.posts.new(post_params)
 
     if @post.save
-      flash[:success] = 'Post was created'
+      flash[:success] = 'Post created successfully'
       redirect_to posts_path
     else
       render :new, status: :unprocessable_entity
@@ -28,7 +29,7 @@ class PostsController < ApplicationController
 
   def update
     if @post.update(post_params)
-      flash[:success] = 'Post was updated'
+      flash[:success] = 'Post updated successfully'
       redirect_to posts_path
     else
       render :edit, status: :unprocessable_entity
@@ -37,7 +38,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    flash[:success] = 'Post was deleted'
+    flash[:success] = 'Post deleted successfully'
     redirect_to posts_path
   end
 
@@ -49,5 +50,9 @@ class PostsController < ApplicationController
 
   def set_post
     @post = Post.find(params[:id])
+  end
+
+  def authorize_post!
+    authorize(@post || Post)
   end
 end

@@ -1,0 +1,6 @@
+= form_with model: [@post, @comment] do |f|
+  = render 'shared/errors', object: @comment
+  .card
+  - if policy(@comment).new?
+    = f.text_area :body, class: 'form-control mb-3'
+    = f.submit 'Create comment', class: 'btn btn-primary mt-3'

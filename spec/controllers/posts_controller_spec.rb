@@ -8,7 +8,7 @@ RSpec.describe PostsController, type: :controller do
 
     it 'assigns all posts to @posts' do
       posts = create_list(:post, 3)
-      expect(assigns(:posts)).to eq(posts)
+      expect(assigns(:posts).pluck(:id)).to match_array(posts.pluck(:id))
     end
 
     it 'renders the index template' do
@@ -31,7 +31,10 @@ RSpec.describe PostsController, type: :controller do
   end
 
   describe '#new' do
-    before { get :new }
+    before do
+      sign_in user
+      get :new
+    end
 
     it 'assigns a new post to @post' do
       expect(assigns(:post)).to be_a_new(Post)
@@ -61,7 +64,7 @@ RSpec.describe PostsController, type: :controller do
 
       it 'sets a flash message' do
         post :create, params: { post: valid_params }
-        expect(flash[:success]).to eq('Post was created')
+        expect(flash[:success]).to eq('Post created successfully')
       end
     end
 
@@ -87,7 +90,9 @@ RSpec.describe PostsController, type: :controller do
   end
 
   describe '#update' do
-    let!(:post) { create(:post) }
+    let!(:post) { create(:post, user_id: user.id) }
+
+    before { sign_in user }
 
     context 'with valid params' do
       let(:valid_params) { { title: 'New Title' } }
@@ -104,7 +109,7 @@ RSpec.describe PostsController, type: :controller do
       end
 
       it 'sets a flash message' do
-        expect(flash[:success]).to eq('Post was updated')
+        expect(flash[:success]).to eq('Post updated successfully')
       end
     end
 
@@ -124,6 +129,28 @@ RSpec.describe PostsController, type: :controller do
 
       it 'returns unprocessable_entity' do
         expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+
+    context 'when user is not the author of the post' do
+      let(:other_user) { create(:user) }
+
+      before do
+        sign_in(other_user)
+        patch :update, params: { id: post.id, post: { title: 'New Title' } }
+      end
+
+      it 'does not update the requested post' do
+        post.reload
+        expect(post.title).not_to eq('New Title')
+      end
+
+      it 'redirects to the root page' do
+        expect(response).to redirect_to(root_path)
+      end
+
+      it 'does not set a flash message' do
+        expect(flash[:success]).to be_nil
       end
     end
   end

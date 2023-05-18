@@ -1,4 +1,4 @@
-# Blogging Website
+# Blog
 
 This is a Ruby on Rails application for a blogging website where registered users can create posts and leave comments.
 

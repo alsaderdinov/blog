@@ -32,18 +32,23 @@ In addition to the specified requirements, this application also includes the fo
 ### Dotenv
 
 ```bash
- $ cp .env.example .env
+  $ cp .env.example .env
 ```
 ### Database
 
 ```bash
- $ cp database.yml.example database.yml
+  $ cp config/database.yml.example config/database.yml
+```
+
+### Master key
+```bash
+  $ rm config/credentials.yml.enc
+  $ bin/rails credentials:edit
 ```
 
 ## Run the app
 
 ```bash
-  $ docker-compose build
-  $ docker-compose up
+  $ docker-compose build && docker-compose up
 ```
 

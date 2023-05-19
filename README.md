@@ -26,3 +26,24 @@ In addition to the specified requirements, this application also includes the fo
 - Image handling: Active Storage
 - Admin panel: Active Admin with Arctic Admin theme
 - User authentication: Devise
+
+## Configuration
+
+### Dotenv
+
+```bash
+ $ cp .env.example .env
+```
+### Database
+
+```bash
+ $ cp database.yml.example database.yml
+```
+
+## Run the app
+
+```bash
+  $ docker-compose build
+  $ docker-compose up
+```
+

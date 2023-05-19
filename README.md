@@ -42,6 +42,7 @@ In addition to the specified requirements, this application also includes the fo
 
 ### Master key
 ```bash
+  $ rm config/credentials.yml.enc
   $ bin/rails credentials:edit
 ```
 
